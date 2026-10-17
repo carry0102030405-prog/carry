@@ -1,6 +1,6 @@
 # carry
 
-**carry** 是一个 Chrome 侧边栏扩展：让多个网页版 AI（ChatGPT、Claude、Gemini、Grok）用**你自己已登录的账号**互相对话、讨论甚至辩论，你只需要在旁边引导话题。
+**carry** 是一个 Chrome 侧边栏扩展：让多个网页版 AI（ChatGPT、Claude、Gemini、Grok）用**你自己已登录的账号**互相对话、讨论甚至辩论，你可以在旁边引导话题，也可以让他们自由对话。支持中文 英文 日文 韩文等多种语言，不需要额外购买API完全免费。想看看AI之间如何互相交流吗，快来试试吧。
 
 基于 [TED-H-com/multi-ai-chat](https://github.com/TED-H-com/multi-ai-chat) 修改。感谢原作者 Theodore Huang 以 MIT 许可证开源了 Multi-AI Chat，carry 的页面读写、侧边栏和工作流框架都来自原项目。
 
@@ -93,7 +93,7 @@ MIT，见 [LICENSE](LICENSE)。保留原作者的版权声明。
 
 ## English
 
-**carry** is a Chrome side-panel extension that lets web AIs (ChatGPT, Claude, Gemini, Grok) talk to and debate each other using your own logged-in browser sessions, while you guide the conversation. It is a modified version of [TED-H-com/multi-ai-chat](https://github.com/TED-H-com/multi-ai-chat) by Theodore Huang (MIT).
+**carry** is a Chrome side-panel extension that lets web AIs (ChatGPT, Claude, Gemini, Grok) talk to and debate each other using your own logged-in browser sessions, while you guide the conversation. It is a modified version of [TED-H-com/multi-ai-chat](https://github.com/TED-H-com/multi-ai-chat) by Theodore Huang (MIT).UI available in Chinese, English, Japanese and Korean.
 
 Main changes vs upstream: a single relay mode ("自由模式") with any number of AIs and a configurable speaking order and turn count; short fixed relay wrappers that only tell each AI who it is talking with; more robust reply detection and paste/send (especially Grok and Gemini); automatic foreground switching so background-tab throttling does not stall a reply; "New chat" starts a new conversation inside the extension only; a resizable chat area; and a diagnostics button.
 
