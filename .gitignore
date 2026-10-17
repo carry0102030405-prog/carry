@@ -1,0 +1,24 @@
+# dependencies and build output
+node_modules/
+dist/
+*.zip
+
+# diagnostic reports (may contain page content / chat text)
+diag*.json
+multi-ai-chat-diagnostic-*.json
+carry-diagnostic-*.json
+
+# exported chats
+carry-*.md
+
+# local env / secrets
+.env
+.env.*
+*.pem
+*.key
+
+# misc
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
