@@ -1,0 +1,147 @@
+// === AI Providers ===
+
+export type AIProvider = 'chatgpt' | 'claude' | 'gemini' | 'grok' | 'meta';
+export type Locale = 'en' | 'zh-TW' | 'ja' | 'de' | 'ko';
+export type ThemeMode = 'system' | 'light' | 'dark';
+
+export interface AIConnection {
+  provider: AIProvider;
+  status: 'connected' | 'disconnected' | 'checking' | 'login-required';
+  tabId?: number;
+}
+
+// === Chat Modes ===
+
+// 'relay' (自由模式) is the only mode exposed in the UI. The older modes stay in the
+// worker for compatibility with saved conversations but are hidden.
+export type ChatMode = 'relay' | 'free' | 'debate' | 'consult' | 'coding' | 'roundtable';
+
+// 四方辯證
+export interface DebateRoles {
+  pro: AIProvider;      // 正方
+  con: AIProvider;      // 反方
+  judge: AIProvider;    // 判官（評論雙方論點強弱）
+  summary: AIProvider;  // 總結
+}
+
+// 多方諮詢
+export interface ConsultRoles {
+  first: AIProvider;    // 先答 A
+  second: AIProvider;   // 先答 B
+  reviewer: AIProvider; // 審查
+  summary: AIProvider;  // 總結
+}
+
+// Coding 模式
+export interface CodingRoles {
+  planner: AIProvider;  // 規劃者
+  reviewer: AIProvider; // 審查者
+  coder: AIProvider;    // 執行+品管
+  tester: AIProvider;   // 測試員（出測試案例 + 挑 bug）
+}
+
+// 道理辯證 (5 rounds × 1–4 人)。'off' = 此席位不發言；同一個 AI 可以坐多個席位。
+export type RoundtableSlot = AIProvider | 'off';
+export interface RoundtableRoles {
+  first: RoundtableSlot;   // 每輪第一位發言
+  second: RoundtableSlot;  // 每輪第二位發言
+  third: RoundtableSlot;   // 每輪第三位發言
+  fourth: RoundtableSlot;  // 每輪第四位發言
+}
+
+export type ModeRoles = DebateRoles | ConsultRoles | CodingRoles | RoundtableRoles;
+
+// === Messages ===
+
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'ai';
+  provider?: AIProvider;
+  modeRole?: string; // 'pro' | 'con' | 'summary' | 'first' | 'reviewer' | 'planner' | 'coder' etc.
+  content: string;
+  timestamp: number;
+  requestId?: string;
+}
+
+export interface Conversation {
+  id: string;
+  title: string;
+  mode: ChatMode;
+  roles?: ModeRoles;
+  messages: ChatMessage[];
+  providerUrls?: Partial<Record<AIProvider, string>>;
+  createdAt: number;
+  updatedAt: number;
+}
+
+export interface WorkflowStatusPayload {
+  key: string;
+  params?: Record<string, string | number>;
+  workflowId?: string;
+  sessionId?: string;
+  clientId?: string;
+  done?: boolean;
+  cancelled?: boolean;
+}
+
+// reread = read the provider's reply again without resending; manual = user pasted the reply.
+export type StepRecoveryAction = 'retry' | 'skip' | 'cancel' | 'reread' | 'manual';
+
+export interface StepRecoveryRequest {
+  recoveryId: string;
+  workflowId: string;
+  sessionId: string;
+  clientId: string;
+  provider: AIProvider;
+  failedRequestId: string;
+  reason: string;
+}
+
+export interface StepRecoveryDecision {
+  recoveryId: string;
+  workflowId: string;
+  sessionId: string;
+  clientId: string;
+  provider: AIProvider;
+  failedRequestId: string;
+  action: StepRecoveryAction;
+  text?: string;
+}
+
+// === Chrome Message Passing ===
+
+export type MessageAction =
+  | 'CHECK_STATUS'
+  | 'STATUS_REPORT'
+  | 'SEND_MESSAGE'
+  | 'RESPONSE_CHUNK'
+  | 'RESPONSE_DONE'
+  | 'OPEN_LOGIN'
+  | 'GET_CONNECTIONS'
+  | 'SET_STANDBY_PROVIDER'
+  | 'PROVIDER_SELECTION_UPDATE'
+  | 'GET_PROVIDER_URLS'
+  | 'RESET_PROVIDER_SESSIONS'
+  | 'RESTORE_PROVIDER_SESSIONS'
+  | 'CONNECTIONS_UPDATE'
+  | 'WORKFLOW_STATUS'
+  | 'ROLE_ASSIGNMENT'
+  | 'STEP_RECOVERY_REQUIRED'
+  | 'RESOLVE_STEP_RECOVERY'
+  | 'CANCEL_WORKFLOW'
+  | 'STOP_GENERATION'
+  | 'PUBLISH_HACKMD'
+  | 'READ_LATEST_REPLY'
+  | 'DIAGNOSE'
+  | 'PING_REQUEST'
+  | 'POKE_REQUEST'
+  | 'COLLECT_DIAGNOSTICS'
+  | 'RELAY_INJECT';
+
+export interface ExtensionMessage {
+  action: MessageAction;
+  provider?: AIProvider;
+  requestId?: string;
+  workflowId?: string;
+  payload?: unknown;
+}

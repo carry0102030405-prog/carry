@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "carry",
+  "short_name": "carry",
+  "version": "2.0.0",
+  "description": "Run reliable multi-AI workflows across ChatGPT, Claude, Gemini, and Grok from one side panel.",
+  "minimum_chrome_version": "114",
+  "permissions": ["sidePanel", "tabs", "storage", "scripting"],
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://grok.com/*",
+    "https://api.hackmd.io/*"
+  ],
+  "optional_host_permissions": [
+    "https://www.meta.ai/*",
+    "https://meta.ai/*"
+  ],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
+      "js": ["content/chatgpt.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://claude.ai/*"],
+      "js": ["content/claude.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://gemini.google.com/*"],
+      "js": ["content/gemini.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://grok.com/*"],
+      "js": ["content/grok.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "carry"
+  }
+}

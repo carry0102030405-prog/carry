@@ -1,0 +1,43 @@
+{
+  "name": "carry",
+  "version": "2.0.0",
+  "description": "Let web AIs (ChatGPT, Claude, Gemini, Grok) talk to each other from a Chrome side panel. Based on TED-H-com/multi-ai-chat.",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "dev": "webpack --watch --mode development",
+    "build": "webpack --mode production",
+    "check:version": "node scripts/check-version.js",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test \"test/*.test.mts\"",
+    "verify": "npm run typecheck && npm run test && npm run build && npm run check:version",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/chrome": "^0.3.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "copy-webpack-plugin": "^14.0.0",
+    "css-loader": "^7.1.5",
+    "html-webpack-plugin": "^5.6.8",
+    "linkedom": "^0.18.13",
+    "mini-css-extract-plugin": "^2.10.2",
+    "postcss": "^8.5.28",
+    "postcss-loader": "^8.1.1",
+    "rimraf": "^6.0.1",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.3.3",
+    "ts-loader": "^9.6.2",
+    "typescript": "^6.0.3",
+    "webpack": "^5.111.1",
+    "webpack-cli": "^7.2.3"
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  }
+}
