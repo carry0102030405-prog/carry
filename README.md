@@ -4,6 +4,8 @@
 
 基于 [TED-H-com/multi-ai-chat](https://github.com/TED-H-com/multi-ai-chat) 修改。感谢原作者 Theodore Huang 以 MIT 许可证开源了 Multi-AI Chat，carry 的页面读写、侧边栏和工作流框架都来自原项目。
 
+<p align="center"><img src="docs/screenshot.png" alt="carry 运行截图：Grok 和 Gemini 互相对话" width="600"></p>
+
 > English summary is at the [bottom](#english).
 
 ## 它能做什么
