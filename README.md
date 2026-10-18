@@ -87,6 +87,12 @@ npm run verify   # 类型检查 + 全部测试 + 生产构建 + 版本号一致�
 - 它通过页面上的输入框和对话内容与各个 AI 网站交互，使用的是你浏览器里现有的登录状态；扩展本身不读取、不保存你的账号密码。
 - 对话记录和设置保存在浏览器本地的扩展存储里。只有当你主动使用“发布到 HackMD”时，内容才会发送到 HackMD。
 
+## 贡献者
+
+- [carry](https://github.com/carry0102030405-prog)：项目发起人，提出需求、设计提示词和测试
+- ai（Grok Bot 助手）：参与代码修改、测试和文档编写
+- 原项目作者 [Theodore Huang](https://github.com/TED-H-com)：Multi-AI Chat
+
 ## 许可证
 
 MIT，见 [LICENSE](LICENSE)。保留原作者的版权声明。
